@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JS Example: Shopping List</title>
+  </head>
+  <body>
+    <h1>Shopping List App</h1>
+
+    <!-- Form -->
+    <label for="item-name-input">Item Name</label>
+    <input id="item-name-input" type="text" name="item-name" />
+    <button onclick="onAdd()">Add</button>
+
+    <!-- List -->
+    <ol id="item-list"></ol>
+
+    <script>
+      let itemNames = [];
+
+      function onAdd() {
+        const value = document.getElementById("item-name-input").value;
+        // Handle empty value
+        if (value === "") {
+          alert("Error: item name is empty!");
+        } else {
+          // Add the value to an array
+          itemNames.push(value);
+          // Render the list
+          renderList();
+        }
+      }
+
+      function renderList() {
+        const itemListElement = document.getElementById("item-list");
+        // Clear item list
+        itemListElement.innerHTML = "";
+        // Loop
+        let i = 0;
+        while (i < itemNames.length) {
+          itemListElement.innerHTML += `<li>${itemNames[i]} <button onclick="deleteItemByName('${itemNames[i]}')">Del</button></li>`;
+          i++;
+        }
+      }
+
+      function deleteItemByName(targetName) {
+        // Filter the targetName out
+        itemNames = itemNames.filter((itemName) => itemName !== targetName);
+        // Render the list to update the UI
+        renderList();
+      }
+    </script>
+  </body>
+</html>
